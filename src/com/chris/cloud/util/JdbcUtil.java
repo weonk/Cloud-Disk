@@ -8,9 +8,9 @@ import java.util.List;
 
 public class JdbcUtil {
     private static String jdbcDriver = "com.mysql.jdbc.Driver";
-    private static String url = "jdbc:mysql://47.106.38.136:3306/cloud";
-    private static String user = "root";
-    private static String password = "1172477133wq";
+    private static String url = "jdbc:mysql://xxx:3306/cloud";
+    private static String user = "xxx";
+    private static String password = "xxx";
 
     public static Connection getConnection() throws Exception {
         Class.forName(jdbcDriver);
