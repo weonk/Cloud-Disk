@@ -60,10 +60,7 @@ public class UserDaoImpl implements UserDao {
         ResultSet resultSet = JdbcUtil.doQuery(preparedStatement, objects);
         User user = null;
         if (resultSet.next()) {
-            user = new User();
-            user.setId(resultSet.getInt("id"));
-            user.setUserName(resultSet.getString("username"));
-            user.setPassword(resultSet.getString("password"));
+           doResultSet(resultSet, user);
         }
         return user;
     }
@@ -77,13 +74,18 @@ public class UserDaoImpl implements UserDao {
         objects.add(userName);
         objects.add(password);
         ResultSet resultSet = JdbcUtil.doQuery(preparedStatement, objects);
-        User user = null;
+        User user = new User();
         if (resultSet.next()) {
-            user = new User();
-            user.setId(resultSet.getInt("id"));
-            user.setUserName(resultSet.getString("username"));
-            user.setPassword(resultSet.getString("password"));
+            doResultSet(resultSet, user);
+        } else {
+            user = null;
         }
         return user;
+    }
+
+    private void doResultSet(ResultSet resultSet, User user) throws Exception {
+        user.setId(resultSet.getInt("id"));
+        user.setUserName(resultSet.getString("username"));
+        user.setPassword(resultSet.getString("password"));
     }
 }
