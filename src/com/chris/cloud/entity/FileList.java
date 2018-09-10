@@ -1,19 +1,19 @@
 package com.chris.cloud.entity;
 
 public class FileList {
-    private Integer index;
+    private Integer id;
     private Integer userId;
     private String name;
     private String src;
     private String size;
     private String date;
 
-    public Integer getIndex() {
-        return index;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getUserId() {
@@ -59,7 +59,7 @@ public class FileList {
     @Override
     public String toString() {
         return "FileList{" +
-                "index=" + index +
+                "index=" + id +
                 ", userId=" + userId +
                 ", name='" + name + '\'' +
                 ", src='" + src + '\'' +
