@@ -108,7 +108,7 @@ public class UploadFileServlet extends HttpServlet {
                         out.write(buffer, 0, len);
                     }
                     //获取当前时间
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     long now = System.currentTimeMillis();
                     String date = simpleDateFormat.format(now);
                     //关闭输入流
@@ -127,12 +127,13 @@ public class UploadFileServlet extends HttpServlet {
                     fileList.setSrc(realSavePath);
                     fileList.setSize(format(fileSize));
                     fileList.setDate(date);
-                    if (fileDao.insertFile(fileList) == 1) {
+                    int result = fileDao.insertFile(fileList);
+                    if (result == 1) {
                         //添加一条记录
                         LogDao logDao = new LogDaoImpl();
                         Log log = new Log();
                         log.setUserId(3);
-                        log.setFileIndex(1111);
+                        log.setFileId(fileDao.getFilesByKey(saveFilename).get(0).getId());
                         log.setAction(1);
                         log.setData(date);
                         logDao.insertLog(log);

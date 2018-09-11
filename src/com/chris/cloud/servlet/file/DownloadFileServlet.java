@@ -1,19 +1,24 @@
 package com.chris.cloud.servlet.file;
 
 import com.chris.cloud.dao.FileDao;
+import com.chris.cloud.dao.LogDao;
 import com.chris.cloud.dao.impl.FileDaoImpl;
+import com.chris.cloud.dao.impl.LogDaoImpl;
 import com.chris.cloud.entity.FileList;
+import com.chris.cloud.entity.Log;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 
 @WebServlet("/downloadFile")
 public class DownloadFileServlet extends HttpServlet {
@@ -62,6 +67,19 @@ public class DownloadFileServlet extends HttpServlet {
             in.close();
             //关闭输出流
             out.close();
+            //获取时间
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            long now = System.currentTimeMillis();
+            String date = simpleDateFormat.format(now);
+            //新增一条记录
+            LogDao logDao = new LogDaoImpl();
+            Log log = new Log();
+            HttpSession httpSession = request.getSession();
+            log.setUserId((Integer) httpSession.getAttribute("userId"));
+            log.setFileId(Integer.parseInt(fileId));
+            log.setAction(0);
+            log.setData(date);
+            logDao.insertLog(log);
 
         } catch (Exception e) {
             e.printStackTrace();
