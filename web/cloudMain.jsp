@@ -12,7 +12,7 @@
     <title>文件上传</title>
 </head>
 <body>
-    <form action="/uploadFile" enctype="multipart/form-data" method="post">
+    <form action="uploadFile" enctype="multipart/form-data" method="post">
         上传文件：<input type="file" name="file"><br/>
         <input type="submit" value="提交">
     </form>
@@ -28,8 +28,8 @@
                 <td>${file.name}</td>
                 <td>${file.size}</td>
                 <td>${file.date}</td>
-                <td><a href="/downloadFile?fileId=${file.id}">下载</a></td>
-                <td><a href="#">删除</a></td>
+                <td><a href="downloadFile?fileId=${file.id}">下载</a></td>
+                <td><a href="deleteFile?fileId=${file.id}">删除</a></td>
             </tr>
         </c:forEach>
     </table>
