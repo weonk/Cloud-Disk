@@ -142,3 +142,7 @@ body {
     margin-top: 20px;
     color: white;
 }
+
+.tools{width:95%;height:40px;margin:30px auto 20px;}
+.tools .t_upload{width:120px;height:36px;display:block;background:#69F;font-size:14px;text-align:center;line-height:36px;color:#fff;cursor: pointer;border-radius:3px;}
+.tools .t_upload:hover{background:#66F;}
