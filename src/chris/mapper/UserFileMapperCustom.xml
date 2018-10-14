@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chris.mapper.UserFileMapperCustom" >
+
+    <sql id="Where_UserId_FileID">
+        where user_id = #{userFileCustom.userId, jdbcType=INTEGER} and file_id = #{userFileCustom.fileId, jdbcType=INTEGER}
+    </sql>
+
+    <insert id="insertUserFile" parameterType="UserFileQueryVo">
+        insert into user_file (user_id, file_id)
+        values (#{userFileCustom.userId,jdbcType=INTEGER}, #{userFileCustom.fileId,jdbcType=INTEGER})
+    </insert>
+
+    <delete id="deleteUserFileByUserIdAndFileId" parameterType="UserFileQueryVo">
+        delete from user_file
+        <include refid="Where_UserId_FileID" />
+    </delete>
+
+    <select id="selectUserFileByUserIdAndFileId" parameterType="UserFileQueryVo" resultType="UserFileCustom">
+        select *
+        from user_file
+        <include refid="Where_UserId_FileID" />
+    </select>
+
+</mapper>

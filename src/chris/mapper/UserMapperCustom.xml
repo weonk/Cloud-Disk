@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chris.mapper.UserMapperCustom" >
+
+    <sql id="query_user_where">
+        <if test="userCustom != null">
+            <if test="userCustom.userName != null and userCustom.userName != '' and userCustom.password != null and userCustom.password != ''">
+                user_name = '${userCustom.userName}' and password = '${userCustom.password}'
+            </if>
+            <if test="userCustom.userName != null and userCustom.userName != '' and userCustom.password == null">
+                user_name = '${userCustom.userName}'
+            </if>
+        </if>
+    </sql>
+
+    <select id="selectUserByUserNameAndPwd" parameterType="com.chris.pojo.UserQueryVo" resultType="com.chris.pojo.UserCustom">
+        select * from user
+        <where>
+            <include refid="query_user_where" />
+        </where>
+    </select>
+
+    <select id="selectUserByUserName" parameterType="String" resultType="com.chris.pojo.UserCustom">
+        select * from user
+        <where>
+            <include refid="query_user_where" />
+        </where>
+    </select>
+
+    <select id="selectUserById" parameterType="UserQueryVo" resultType="UserCustom">
+        select * from user where id = ${userCustom.id}
+    </select>
+
+    <update id="updateUserInfo" parameterType="UserQueryVo">
+        update user set nickname = '${userCustom.nickname}', email = '${userCustom.email}' where id = ${userCustom.id}
+    </update>
+
+    <update id="updateUserPassword" parameterType="UserQueryVo">
+        update user set password = '${userCustom.password}' where  id = ${userCustom.id}
+    </update>
+
+</mapper>

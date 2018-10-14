@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chris.mapper.FileMapperCustom" >
+
+    <sql id="upload_time_desc">
+        order by file.upload_time desc
+    </sql>
+
+    <select id="selectFileByUser" parameterType="Integer" resultType="FileCustom">
+        select file.*
+        from user_file,file
+        where user_file.user_id = #{userId} and user_file.file_id = file.id
+        <include refid="upload_time_desc" />
+    </select>
+
+    <insert id="insertFile" parameterType="FileQueryVo">
+        insert into file (file_name,file_path,real_size,format_size,upload_time,file_type)
+        values (#{fileCustom.fileName,jdbcType=VARCHAR},#{fileCustom.filePath,jdbcType=VARCHAR},#{fileCustom.realSize,jdbcType=INTEGER},#{fileCustom.formatSize,jdbcType=VARCHAR},#{fileCustom.uploadTime,jdbcType=TIMESTAMP},#{fileCustom.fileType,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="selectFileByFileName" parameterType="FileQueryVo" resultType="FileCustom">
+        select file.*
+        from file
+        where file_name = '${fileCustom.fileName}'
+    </select>
+
+    <select id="selectFileById" parameterType="Integer" resultType="FileCustom">
+        select file.*
+        from file
+        where id = #{fileId}
+    </select>
+
+    <select id="selectAllFile" resultType="FileCustom">
+        select file.*
+        from file
+        <include refid="upload_time_desc" />
+    </select>
+
+    <select id="selectFileByKeyName" parameterType="FileQueryVo" resultType="FileCustom">
+        select file.*
+        from file
+        where substring_index(file.file_name, '_', -1) like '%%${keyName}%%'
+        <include refid="upload_time_desc" />
+    </select>
+
+</mapper>
