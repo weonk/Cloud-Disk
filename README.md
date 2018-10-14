@@ -25,4 +25,4 @@
   > ![cloud++](https://github.com/iamchriswu/Cloud-Disk/blob/master/images/cloud%2B%2B2.png)
 ## 4.地址
   > 欢迎访问
-  * [Cloud++](47.106.38.136/CouldPan)
+  * [Cloud++](http://47.106.38.136/CouldPan)
